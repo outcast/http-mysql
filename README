@@ -1,0 +1,23 @@
+-----http-mysql------
+
+I wrote this to allow me to mysql queries via http. I need to achive because I am working service intergration with Google App Engine (GAE).
+GAE dose not currently have the ability to remotely connect mysql databases using python. since it returns the results in json it can be use with thing like jquery.
+
+It is highly recommend to use this only over https.
+
+Next Steps
+-------------
+
+1. add encrytion
+2. add acl controls
+3. add support for multiple databases
+
+
+
+if you have any questions or comments contact:
+
+james@qslnetworks.com or james@freedomnet.co.nz
+
+
+
+
