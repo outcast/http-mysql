@@ -3,33 +3,47 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 	<title>outcast/http-mysql @ GitHub</title>
 	
 	<style type="text/css">
 		body {
   		margin-top: 1.0em;
-  		background-color: #2e1da3;
+  		background: #000 url('http://askoutcast.com/wp-content/themes/sliding-door/img/bg.jpg') no-repeat fixed center 100px;
 		  font-family: "Helvetica,Arial,FreeSans";
-  		color: #ffffff;
+  		color: #FFF;
     }
     #container {
       margin: 0 auto;
       width: 700px;
+	  background: #666;
     }
-		h1 { font-size: 3.8em; color: #d1e25c; margin-bottom: 3px; }
+		h1 {
+	font-size: 3.8em;
+	color: #333;
+	margin-bottom: 3px;
+}
 		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #d1e25c; }
-    h3 { text-align: center; color: #d1e25c; }
-    a { color: #d1e25c; }
+		h1 a { text-decoration: none; color: #222; }
+		h2 {
+	font-size: 1.5em;
+	color: #333;
+}
+    h3 {
+	text-align: center;
+	color: #333;
+}
+    a { color: #3FC; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+		pre { background: #111; color: #fff; padding: 15px;}
+    hr { border: 2; width: 80%; border-bottom: 1px solid #666}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
+	a:link {
+	color: #222;
+}
+</style>
 	
 </head>
 
@@ -57,14 +71,23 @@ I wrote this to allow me to mysql queries via http. I need to achive because I a
 GAE dose not currently have the ability to remotely connect mysql databases using python. since it returns the results in json it can be use with thing like jquery.
 
 It is highly recommend to use this only over https.
-
-Next Steps
--------------
-
-1. add encrytion
-2. add acl controls
-3. add support for multiple databases
-</p><h2>Dependencies</h2>
+</p>
+    <blockquote>
+      <p>Next Steps:</p>
+    </blockquote>
+    <ol>
+      <ol>
+        <ol>
+          <ol>
+            <li> add encrytion      </li>
+            <li>add acl controls</li>
+            <li>add support for multiple databases <br />
+            </li>
+          </ol>
+        </ol>
+      </ol>
+    </ol>
+    <h2>Dependencies</h2>
 <p>php and mysqli</p>
 <h2>Install</h2>
 <p>copy where you want it live and modify config/config.php to suit your needs.</p>
@@ -87,9 +110,12 @@ Next Steps
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 </p>
 <h2>Authors</h2>
-<p>James Jones (james@freedomnet.co.nz)<br/><br/>      </p>
+<p>James Jones (james@freedomnet.co.nz)
+<br/>
+<br/>      </p>
 <h2>Contact</h2>
-<p>James Jones (james@freedomnet.co.nz)<br/>      </p>
+<p>James Jones (james@freedomnet.co.nz)
+<br/>      </p>
 
 
     <h2>Download</h2>
