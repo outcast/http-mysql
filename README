@@ -5,6 +5,12 @@ GAE dose not currently have the ability to remotely connect mysql databases usin
 
 It is highly recommend to use this only over https.
 
+
+License
+------------
+Please refer to the "LICENSE" file include in this package
+
+
 Next Steps
 -------------
 
@@ -12,7 +18,26 @@ Next Steps
 2. add acl controls
 3. add support for multiple databases
 
+Dependancies
+---------------
+php with mysqli support.
 
+note: this will work with either the native or non-native mysql driver
+
+
+
+Installition
+------------------
+
+1. Copy the files to directory you want to run it from.
+2. Cofigure config/config.php to suit your needs.
+	note: if you do no have a secondary mysql server put address in bot host fields.
+3. Have fun
+
+Usage
+-----------------
+Please refer to the "examples" directory for usage. If you have any question please contact james@freedomnet.co.nz or go to #http-mysql on irc.freenode.net
+ 
 
 if you have any questions or comments contact:
 
