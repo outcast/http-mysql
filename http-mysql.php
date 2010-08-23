@@ -33,10 +33,15 @@ try{
 		throw new Exception("MYSQL Error: ".$link->error);
 	}
 	if(!$_GET['q']) {
-		$query = $_POST['q'];
+		$enc_query = $_POST['q'];
+		$enc_iv = $_POST['iv'];
 	} else {
-		$query = $_GET['q'];
+		$enc_query = $_GET['q'];
+		$enc_iv = $_GET['iv'];
 	}
+	if(DEBUG) error_log("Trying to decrypt");
+	$query = decrypt(base64_decode($enc_query),base64_decode($enc_iv));
+	if(DEBUG) error_log("Using query: ".$query);
 	if(!$query) throw new Exception("No Query passed");
 	if(DEBUG) error_log("SQL Query: ".$query);
 	$result = $link->query($query);
@@ -46,7 +51,10 @@ try{
 		$rows[$x] = $row;
 		$x++;
 	}
-	echo json_encode($rows);
+	if(!DEBUG) error_log("Encrypting result");
+	$enc = encrypt(json_encode($rows));
+	if(!DEBUG) error_log("Sending Result back");
+	echo $enc;
 	
 } catch(Exception $e) {
 	error_log($e->getMessage());
@@ -91,4 +99,24 @@ function getDBH($rw=0,$db=NULL)
         }
         return $link;
 }
+
+
+function encrypt($str=NULL) {
+	if(!$str){ error_log("No string sent to encrypt"); return 0; }
+	$size = mcrypt_get_iv_size(MCRYPT_CIPHER, MCRYPT_MODE);
+	error_log("IV Size: ".$size);
+	$iv = mcrypt_create_iv($size, MCRYPT_DEV_RANDOM);
+	error_log("IV: ".$iv);
+	$enc_str =  mcrypt_encrypt(MCRYPT_CIPHER,MCRYPT_KEY,$str,MCRYPT_MODE,$iv);
+	$result['string'] = base64_encode($enc_str);
+	$result['iv'] = base64_encode($iv);
+	return json_encode($result);
+}
+
+function decrypt($str,$iv){
+	if(!$str ) { error_log("No string sent to decrypt"); return 0; }
+	if(!$iv) { error_log("Can not decrypt without IV"); return 0; }
+	return str_replace("\x0", '', mcrypt_decrypt(MCRYPT_CIPHER,MCRYPT_KEY,$str,MCRYPT_MODE,$iv));
+}
+
 ?>
