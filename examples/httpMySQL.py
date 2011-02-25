@@ -39,8 +39,8 @@ LEVELS = {'debug': logging.DEBUG,
           'critical': logging.CRITICAL}
 
 debug = 1
-query_url = "http://homer.outcast.ws/http-mysql/http-mysql.php"
-key = 'handsoff'
+query_url = "http://example.com/http-mysql/http-mysql.php"
+key = 'monkeybutt'
 def query(query):
 	iv = ''.join(chr(random.randint(0, 0xFF)) for i in range(8))
 	crypt = DES.new('handsoff',DES.MODE_CBC,iv)
