@@ -26,6 +26,10 @@ from django.utils import simplejson as json
 from google.appengine.api import urlfetch
 import logging
 import urllib
+import random
+import base64
+import re
+from Crypto.Cipher import DES
 
 
 LEVELS = {'debug': logging.DEBUG,
@@ -34,17 +38,25 @@ LEVELS = {'debug': logging.DEBUG,
           'error': logging.ERROR,
           'critical': logging.CRITICAL}
 
-debug =1
-query_url = "http://localhost/http-mysql/http-mysql.php"
-
+debug = 1
+query_url = "http://homer.outcast.ws/http-mysql/http-mysql.php"
+key = 'handsoff'
 def query(query):
+	iv = ''.join(chr(random.randint(0, 0xFF)) for i in range(8))
+	crypt = DES.new('handsoff',DES.MODE_CBC,iv)
+	query_cipher = crypt.encrypt(query)
 	statement = {
-		'q' : query
+		'q'  : base64.standard_b64encode(query_cipher),
+		'iv' : base64.standard_b64encode(iv)
 	}
 	if debug: logging.info('Recieved Query: '+query)
 	query_encoded = urllib.urlencode(statement)
-	if debug: logging.info('Enconded Query: '+query_encoded)
+	if debug: logging.info('Encoded Query: '+query_encoded)
 	result = urlfetch.fetch(query_url+"?"+query_encoded)
-	if debug: logging.info('Recieved Content: '+result.content)
-	results = json.loads(result.content)
+	if debug: logging.info("Spliting String: "+ result.content )
+	enc = json.loads(result.content)
+	crypt = DES.new(key,DES.MODE_CBC,base64.standard_b64decode(enc['iv']))
+	result_decrypt = crypt.decrypt(base64.standard_b64decode(enc['string']))
+	if debug: logging.info("Decrypted: "+result_decrypt)
+	results = json.loads(re.sub("].*$","]",result_decrypt))
 	return results
