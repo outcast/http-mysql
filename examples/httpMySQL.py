@@ -20,7 +20,7 @@
 #
 #	Note:
 #		This an example module for python that has been designed to work with Google App Engine
-#		
+# 		
 
 from django.utils import simplejson as json
 from google.appengine.api import urlfetch
